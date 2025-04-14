@@ -9,12 +9,10 @@ use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Models\User;
 use App\Services\AuthService;
-use App\Traits\RespondsWithJson;
+
 
 class AuthController extends Controller
 {
-    use RespondsWithJson;
-
     public function __construct(public AuthService $authService) {}
 
     public function register(RegisterRequest $request)

@@ -4,11 +4,8 @@ namespace {{ namespace }};
 
 use {{ rootNamespace }}Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Traits\RespondsWithJson;
 
 class {{ class }} extends Controller
 {
-    use RespondsWithJson;
-
     public function __construct(public ServiceClass $serviceClass) {}
 }
