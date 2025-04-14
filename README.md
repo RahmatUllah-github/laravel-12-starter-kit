@@ -64,3 +64,8 @@ V2.0 is a step forward into building a more collaborative workspace, adding feat
 
 This version starts laying the foundation for teams to manage complex projects with clarity and efficiency.
 
+## License
+
+This project is private and proprietary. See the [LICENSE](./LICENSE) file for more details.
+
+
