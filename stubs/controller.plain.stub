@@ -10,8 +10,5 @@ class {{ class }} extends Controller
 {
     use RespondsWithJson;
 
-    public function __construct(ServiceClass $serviceClass)
-    {
-        $this->serviceClass = $serviceClass;
-    }
+    public function __construct(public ServiceClass $serviceClass) {}
 }
