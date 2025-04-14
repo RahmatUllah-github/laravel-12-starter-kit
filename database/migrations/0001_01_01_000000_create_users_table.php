@@ -17,10 +17,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable(); // nullable for social accounts
-            $table->string('provider')->nullable(); // google, facebook, etc.
-            $table->string('provider_id')->nullable(); // their unique ID
             $table->string('source')->nullable()->comment('web, ios, android etc');
             $table->boolean('is_active')->default(true);
+            $table->string('email_verification_otp')->nullable();
+            $table->timestamp('email_otp_expires_at')->nullable();
+            $table->string('provider')->nullable(); // google, facebook, etc.
+            $table->string('provider_id')->nullable(); // their unique ID
             $table->rememberToken();
             $table->timestamps();
         });

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\Auth\ResetPasswordRequest;
+use App\Models\User;
 use App\Services\AuthService;
 use App\Traits\RespondsWithJson;
 
@@ -12,12 +15,7 @@ class AuthController extends Controller
 {
     use RespondsWithJson;
 
-    protected AuthService $authService;
-
-    public function __construct(AuthService $authService)
-    {
-        $this->authService = $authService;
-    }
+    public function __construct(public AuthService $authService) {}
 
     public function register(RegisterRequest $request)
     {
@@ -35,6 +33,27 @@ class AuthController extends Controller
         }
 
         return $this->respondSuccess('Login successful', $data);
+    }
+
+    public function forgotPassword(ForgotPasswordRequest $request)
+    {
+        $user = User::findByEmail($request->email);
+        $this->authService->sendEmailVerificationOtp($user);
+
+        return $this->respondSuccess('OTP sent to your email.');
+    }
+
+    public function resetPassword(ResetPasswordRequest $request)
+    {
+        $user = User::findByEmail($request->email);
+
+        if (! $user || ! $this->authService->verifyPasswordResetOtp($user, $request->otp)) {
+            return $this->respondValidationError('Invalid or expired OTP.');
+        }
+
+        $this->authService->resetPassword($user, $request->password);
+
+        return $this->respondSuccess('Password reset successfully.');
     }
 
     public function logout()

@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests\Auth;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use App\Services\JsonResponseService;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
-class RegisterRequest extends FormRequest
+class ResetPasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,21 +25,9 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'     => ['required', 'string', maxString()],
-            'email'    => ['required', 'email', 'unique:users,email', maxString()],
+            'email' => ['required', 'email', 'exists:users,email', maxString()],
+            'otp'   => ['required', 'digits:'.config('auth.passwords.users.otp_length')],
             'password' => ['required', 'min:'.config('auth.passwords.users.password_length'), 'confirmed'],
-        ];
-    }
-
-
-    /**
-     * Get custom messages for validator errors.
-     */
-    public function messages(): array
-    {
-        return [
-            // 'name.required' => 'The name field is required.',
-            // Add custom messages as needed
         ];
     }
 

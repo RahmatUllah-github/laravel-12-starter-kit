@@ -27,6 +27,8 @@ class User extends Authenticatable
         'provider_id',
         'source',
         'is_active',
+        'email_verification_otp',
+        'email_otp_expires_at',
     ];
 
     /**
@@ -48,6 +50,7 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'email_otp_expires_ats' => 'datetime',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];
