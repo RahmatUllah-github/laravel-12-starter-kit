@@ -2,13 +2,15 @@
 
 namespace App\Http\Requests\Auth;
 
-use App\Services\JsonResponseService;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Traits\RespondsWithJson;
 
 class ForgotPasswordRequest extends FormRequest
 {
+    use RespondsWithJson;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -36,7 +38,7 @@ class ForgotPasswordRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(
-            JsonResponseService::validationErrorResponse($validator->errors()->first(), [
+            $this->respondValidationError($validator->errors()->first(), [
                 'errors' => $validator->errors()->all()
             ])
         );

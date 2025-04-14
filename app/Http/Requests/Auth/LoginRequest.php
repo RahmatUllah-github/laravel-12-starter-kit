@@ -5,10 +5,11 @@ namespace App\Http\Requests\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use App\Services\JsonResponseService;
-
+use App\Traits\RespondsWithJson;
 class LoginRequest extends FormRequest
 {
+    use RespondsWithJson;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -36,7 +37,7 @@ class LoginRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(
-            JsonResponseService::validationErrorResponse($validator->errors()->first(), [
+            $this->respondValidationError($validator->errors()->first(), [
                 'errors' => $validator->errors()->all()
             ])
         );
