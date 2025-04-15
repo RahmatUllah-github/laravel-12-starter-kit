@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Auth;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -18,7 +18,7 @@ class AuthService
             'password' => Hash::make($data['password']),
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createAuthToken();
 
         return [
             'user'  => $user,
@@ -34,7 +34,7 @@ class AuthService
             return false;
         }
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createAuthToken();
 
         return [
             'user'  => $user,
