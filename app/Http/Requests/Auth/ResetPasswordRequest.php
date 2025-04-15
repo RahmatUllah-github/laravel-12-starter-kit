@@ -34,6 +34,16 @@ class ResetPasswordRequest extends FormRequest
     }
 
     /**
+     * Get custom messages for validator errors.
+     */
+    public function messages(): array
+    {
+        return [
+            // Add custom messages as needed
+        ];
+    }
+
+    /**
      * Handle a failed validation attempt.
      */
     protected function failedValidation(Validator $validator)

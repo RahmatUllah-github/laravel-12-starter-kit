@@ -33,14 +33,12 @@ class RegisterRequest extends FormRequest
         ];
     }
 
-
     /**
      * Get custom messages for validator errors.
      */
     public function messages(): array
     {
         return [
-            // 'name.required' => 'The name field is required.',
             // Add custom messages as needed
         ];
     }
