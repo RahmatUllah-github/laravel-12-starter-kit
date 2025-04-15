@@ -7,5 +7,7 @@ use Illuminate\Http\Request;
 
 class {{ class }} extends Controller
 {
+    // accepted response methods: respondSuccess, respondValidationError, respondUnauthorized, respondForbidden, respondNotFound, respondError
+    
     public function __construct(public ServiceClass $serviceClass) {}
 }
