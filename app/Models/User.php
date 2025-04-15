@@ -88,4 +88,16 @@ class User extends Authenticatable
     {
         $this->attributes['email'] = strtolower($value);
     }
+
+
+    /**
+     * Create a new personal access token for the user.
+     * 
+     * @param string $name The name of the token (default: 'auth_token')
+     * @return string The plain text token
+     */
+    public function createAuthToken(string $name = 'auth_token'): string
+    {
+        return $this->createToken($name)->plainTextToken;
+    }
 }
